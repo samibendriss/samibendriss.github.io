@@ -1,0 +1,4040 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo-sb.png">
+    <title>Sami BENDRISS - Portfolio Communication</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #3B82F6;
+            --secondary: #1E1E1E;
+            --accent: #10B981;
+            --light: #F7F7F7;
+            --gradient-1: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+            --gradient-2: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-3: linear-gradient(135deg, #FDE68A 0%, #3B82F6 100%);
+
+
+        }
+        
+        /* Mode clair (par défaut) */
+        body {
+            --bg-primary: #ffffff;
+            --bg-secondary: rgba(59, 130, 246, 0.1);
+            --bg-secondary-hover: rgba(59, 130, 246, 0.15);
+            --bg-nav: rgba(255, 255, 255, 0.9);
+            --bg-nav-scrolled: rgba(255, 255, 255, 0.95);
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-muted: #6a6a6a;
+            --text-dim: #8a8a8a;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(59, 130, 246, 0.05);
+            --card-bg-hover: rgba(59, 130, 246, 0.08);
+            --input-bg: rgba(0, 0, 0, 0.05);
+            --placeholder-color: rgba(0, 0, 0, 0.5);
+            
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            cursor: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Mode sombre */
+        body.dark-mode {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: rgba(255, 255, 255, 0.05);
+            --bg-secondary-hover: rgba(255, 255, 255, 0.08);
+            --bg-nav: rgba(10, 10, 10, 0.8);
+            --bg-nav-scrolled: rgba(10, 10, 10, 0.95);
+            --text-primary: #fff;
+            --text-secondary: #ccc;
+            --text-muted: #888;
+            --text-dim: #666;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-bg-hover: rgba(255, 255, 255, 0.05);
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --placeholder-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;  /* Ceci s'applique déjà aux deux icônes */
+            transition: all 0.3s ease;
+        }
+
+        /* Par défaut (mode clair) : afficher la lune */
+        .theme-toggle .moon-icon {
+            display: block;
+        }
+
+        .theme-toggle .sun-icon {
+            display: none;
+        }
+
+        /* Mode sombre : afficher le soleil */
+        body.dark-mode .theme-toggle .moon-icon {
+            display: none;
+        }
+
+        body.dark-mode .theme-toggle .sun-icon {
+            display: block;
+        }
+
+        /* Mobile theme toggle position */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgb(59, 130, 246); /* Reste bleu */
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+        }
+        
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 110, 255, 0.1); /* Reste bleu transparent */
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+        }
+        
+        /* Page Container */
+        .page-container {
+            min-height: 100vh;
+            display: none;
+            animation: pageIn 0.6s ease;
+        }
+        
+        .page-container.active {
+            display: block;
+        }
+        
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            font-family: "Noto Naskh Arabic", serif; /* Ajoutez cette ligne */
+            background: var(--bg-primary); /* au lieu de #0a0a0a */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-text {
+            font-size: 4rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s ease infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: var(--bg-nav); /* au lieu de rgba(10, 10, 10, 0.8) */
+            border-bottom: 1px solid var(--border-color); /* au lieu de rgba(255, 255, 255, 0.1) */
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            padding: 15px 50px;
+            background: var(--bg-nav-scrolled); /* au lieu de rgba(10, 10, 10, 0.95) */
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: "Noto Naskh Arabic", serif; /* Ajoutez cette ligne */
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text-primary); /* au lieu de #fff */
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Menu mobile - Texte blanc dans les deux modes */
+        .nav-links.active a {
+            color: #fff !important;
+        }
+
+        .nav-links a.active {
+            color: var(--primary) !important; /* Bleu pour la page active */
+        }
+
+        /* Mode clair : assurer que ça reste bleu */
+        body.dark-mode .nav-links a.active {
+            color: var(--primary) !important;
+        }
+
+        /* Menu mobile : garder le blanc quand le menu est ouvert */
+        .nav-links.active a.active {
+            color: var(--primary) !important;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta-btn {
+            padding: 10px 25px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 25px;
+            color: #fff; /* au lieu de var(--text-primary)*/
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .nav-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+        
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary); /* Utilise la couleur du texte principal */
+            transition: all 0.3s ease;
+        }
+        
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Home Page */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .gradient-sphere {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .sphere-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--gradient-1);
+            top: -200px;
+            right: -200px;
+        }
+        
+        .sphere-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--gradient-2);
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+        
+        .hero-title {
+            font-family: "Noto Naskh Arabic", serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .hero-title span {
+            display: inline-block;
+            animation: slideUp 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+            animation-delay: calc(var(--index) * 0.1s);
+            transform: translateY(100%);
+        }
+        
+        @keyframes slideUp {
+            to { transform: translateY(0); }
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.8s;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        /* Typewriter Animation */
+        .typewriter-container {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            margin: 20px 0 30px 0;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        .typewriter-static {
+            color: var(--text-primary);
+            font-weight: 300;
+        }
+
+        .typewriter-dynamic {
+            display: inline-flex;
+            align-items: center;
+            min-width: 200px;
+        }
+
+        .typewriter-text {
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .typewriter-cursor {
+            color: var(--primary);
+            font-weight: 300;
+            animation: blink 1s infinite;
+            display: inline-block;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Animation de typing */
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes deleteTyping {
+            from { width: 100%; }
+            to { width: 0; }
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            gap: 20px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 1s;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-1);
+            color: #fff; /* au lieu de var(--text-primary)*/
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--text-primary); /* au lieu de #fff */
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* About Page */
+        .about-page {
+            padding: 120px 50px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .page-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: slideUpFade 0.8s ease forwards;
+        }
+        
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            opacity: 0;
+            animation: slideUpFade 0.8s ease forwards;
+            animation-delay: 0.2s;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+            margin-bottom: 80px;
+        }
+        
+        .about-text {
+            opacity: 0;
+            animation: slideRightFade 0.8s ease forwards;
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes slideRightFade {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .about-image {
+            position: relative;
+            opacity: 0;
+            animation: slideLeftFade 0.8s ease forwards;
+            animation-delay: 0.6s;
+        }
+        
+        @keyframes slideLeftFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .profile-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .profile-img-placeholder {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-img-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        /* Skills Section */
+        .skills-section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-card {
+            background: var(--bg-secondary); /* au lieu de rgba(255, 255, 255, 0.05) */
+            padding: 18px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1); /* au lieu de var(--border-color) */
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+            animation-delay: calc(var(--index) * 0.1s);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-secondary-hover); /* au lieu de rgba(255, 255, 255, 0.08) */
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .skill-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .skill-level {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            margin-bottom: 10px; /* Ajoute un espace sous les étoiles */
+        }
+        
+        .skill-logo {
+            width: 75px;
+            height: 75px;
+            min-width: 75px; /* Empêche le logo de rétrécir */
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .skill-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* filter: brightness(0) invert(1); */ /* Supprimez ou commentez cette ligne */
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        /* Alternative plus spécifique si ça ne marche toujours pas *
+        .skill-logo .logo-full,
+        .skill-logo img.logo-full {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+        }*/
+
+        /* Retirer le padding du conteneur pour ce logo */
+        .skill-logo:has(.logo-full) {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .skill-card:hover .skill-logo {
+            background: rgba(59, 130, 246, 0.4);
+            transform: scale(1.1);
+        }
+
+        .skill-card:hover .skill-logo img {
+            opacity: 1;
+        }
+
+        .star {
+            width: 20px;
+            height: 20px;
+            color: #FFFAB6; /* Jaune blanc (émoji iOS) */
+            stroke: #FBC821; /* Jaune orangé (contour émoji iOS) */
+            stroke-width: 1.5;
+        }
+
+        .star.half {
+            color: #FFFAB6; /* Jaune blanc (émoji iOS) */
+            stroke: #FBC821; /* Jaune orangé (contour émoji iOS) */
+            position: relative;
+        }
+
+        .star.empty {
+            opacity: 0.3;
+            fill: none;
+            stroke: #FBC821; /* Jaune orangé (plus proche de l'émoji iOS) */
+            stroke-width: 2;
+        }
+
+        .skill-description {
+            font-size: 0.9rem;
+            color: var(--text-muted); /* au lieu de #888 */
+            margin: 0;
+        }
+
+        .skill-card:hover .skill-description {
+            color: var(--primary);
+        }
+
+        .skill-card-wide {
+            grid-column: span 2; /* S'étend sur 2 colonnes */
+        }
+
+        /* Quand il y a assez d'espace pour 3 colonnes : Codage à côté de Suite Adobe */
+        @media (min-width: 1024px) {
+            .skill-card-wide {
+                grid-column: 2 / 4; /* Prend les colonnes 2 et 3, donc à côté de Suite Adobe */
+            }
+        }
+
+        /* Sur tablette : centrer aussi si possible */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .skill-card-wide {
+                grid-column: 1 / 3; /* Prend les 2 premières colonnes */
+                margin: 0 auto; /* Centre la carte */
+            }
+        }
+
+        /* Sur mobile : revenir à 1 colonne */
+        @media (max-width: 767px) {
+            .skill-card-wide {
+                grid-column: span 1;
+            }
+        }
+
+        .fun-fact {
+            font-size: 0.8rem;
+            color: #DC2626;
+            font-style: italic;
+            margin-top: 8px;
+            margin-bottom: 0;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover .fun-fact {
+            opacity: 1;
+            transform: translateX(3px);
+        }
+
+        /* Responsive : sur mobile, revenir à 1 colonne */
+        @media (max-width: 768px) {
+            .skill-card-wide {
+                grid-column: span 1;
+            }
+        }
+        
+        /* Languages Section */
+        .languages-section {
+            background: var(--card-bg);
+            padding: 60px;
+            border-radius: 30px;
+            margin-bottom: 100px;
+            margin-top: 100px; /* Ajouter cette ligne */
+        }
+        
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 colonnes par défaut */
+            gap: 40px; /* Réduit de 40px à 20px */
+        }
+
+        /* Quand l'espace devient insuffisant, passer en 2x2 */
+        @media (max-width: 768px) {
+            .languages-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
+            }
+        }
+        
+        .language-item {
+            text-align: center;
+            opacity: 0;
+            animation: scaleIn 0.6s ease forwards;
+            animation-delay: calc(var(--index) * 0.1s);
+            transition: transform 0.3s ease;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .language-flag {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+            position: relative;
+        }
+
+        .flag-svg {
+            width: 90px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 3px solid rgb(103 103 109);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Effet au survol */
+        .language-item:hover .flag-svg {
+            transform: scale(1.1);
+            border-color: var(--primary);
+        }
+        
+        .language-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .language-description {
+            color: var(--text-muted); /* au lieu de #888 */
+            font-weight: 500;
+        }
+
+        .language-item:hover .language-description {
+            color: var(--primary);
+        }
+
+        /* Interests Section */
+        .interests-section {
+            background: var(--card-bg);
+            padding: 60px;
+            border-radius: 30px;
+            margin-bottom: 100px;
+            margin-top: 100px; /* Ajouter cette ligne */
+        }
+
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .interest-item {
+            text-align: center;
+            opacity: 0;
+            animation: scaleIn 0.6s ease forwards;
+            animation-delay: calc(var(--index) * 0.1s);
+            transition: transform 0.3s ease;
+        }
+
+        .interest-icon {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+            position: relative;
+        }
+
+        /* Style pour les images SVG des centres d'intérêt */
+        .interest-svg {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        /* Effet au survol */
+        .interest-item:hover .interest-svg {
+            transform: scale(1.1);
+        }
+
+        .interest-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .interest-description {
+            color: var(--text-muted); /* au lieu de #888 */
+            font-weight: 500;
+        }
+
+        .interest-item:hover .interest-description {
+            color: var(--primary);
+        }
+        
+        /* Projects Page */
+        .projects-page {
+            padding: 120px 50px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .projects-filter {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 25px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gradient-1);
+            border-color: transparent;
+            transform: translateY(-2px);
+            color: #fff !important; /* Force le texte en blanc */
+            font-weight: bold;
+        }
+        
+        .projects-count {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 40px 0 30px 0;
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+            animation-delay: 0.4s;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        /* Responsive automatique quand l'écran est trop petit */
+        @media (max-width: 1200px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .project-card {
+            background: var(--card-bg); /* au lieu de rgba(255, 255, 255, 0.03) */
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #000000;
+            box-shadow: 0 0 0 4px transparent; /* 4px transparents */
+            box-sizing: border-box; /* Important pour que la bordure soit incluse dans la taille */
+        }
+
+        /* Mode clair - bordure noire */
+        body.dark-mode .project-card {
+            border: 1px solid #FFFFFF;
+            box-shadow: 0 0 0 4px transparent; /* 4px transparents */
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--primary); /* Garde la bordure blanche */
+            box-shadow: 0 0 0 4px var(--primary), 0 20px 40px rgba(255, 255, 255, 0.3) !important; /* 4px bleus + ombre */
+        }
+        
+        /* Mode clair - bordure noire au survol */
+        body.dark-mode .project-card:hover {
+            border: 1px solid var(--primary); 
+            box-shadow: 0 0 0 4px var(--primary), 0 20px 40px rgba(255, 255, 255, 0.3) !important; /* 4px bleus + ombre */
+        }
+
+        .project-image {
+            width: 100%;
+            height: auto;
+            max-height: 250px; /* Taille maximale raisonnable */
+            object-fit: cover;
+            aspect-ratio: 16/9; /* Maintient le ratio 1920x1080 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 900;
+            border-bottom: 1px solid #000000;
+            color: rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Mode clair - bordure noire */
+        body.dark-mode .project-image {
+            border-bottom: 1px solid #FFFFFF;
+        }
+
+        .project-image img {
+            width: 100%; /* Réduit la taille de l'image à 80% du conteneur */
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover .project-image img {
+            transform: scale(1.1); /* Zoom de 110% au survol */
+        }
+
+        .project-card:hover .project-image::after {
+            opacity: 1;
+        }
+
+        .project-card[data-category="stratégies"] .project-image {
+            background: linear-gradient(135deg, #7C3AED 0%, #A855F7 50%, #C084FC 100%) !important;
+        }
+        .project-card[data-category="créations"] .project-image {
+            background: linear-gradient(135deg, #EA580C 0%, #F97316 50%, #FB923C 100%) !important;
+        }
+        .project-card[data-category="analyses"] .project-image {
+            background: linear-gradient(135deg, #0D9488 0%, #14B8A6 50%, #2DD4BF 100%) !important;
+        }
+
+        .project-card[data-category="stratégies"] .project-separator {
+            background: #7C3AED !important;
+        }
+        .project-card[data-category="créations"] .project-separator {
+            background: #EA580C !important;
+        }
+        .project-card[data-category="analyses"] .project-separator {
+            background: #0D9488 !important;
+        }
+
+        .filter-btn:not(.active)[onclick*="stratégies"] {
+            background: rgba(124, 58, 237, 0.1);
+        }
+        .filter-btn:not(.active)[onclick*="créations"] {
+            background: rgba(234, 88, 12, 0.1);
+        }
+        .filter-btn:not(.active)[onclick*="analyses"] {
+            background: rgba(13, 148, 136, 0.1);
+        }
+
+        .filter-btn:not(.active):hover {
+            background: var(--gradient-1) !important;
+            border-color: transparent !important;
+            transform: translateY(-2px) !important;
+            color: #fff !important;
+            font-weight: bold !important;
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4) !important;
+        }
+        
+        .project-separator {
+            width: 100%;
+            height: 20px;
+            border-bottom: 1px solid #000000; /* Bordure noire en mode clair */
+        }
+
+        /* Mode clair - bordures noires */
+        body.dark-mode .project-separator {
+            border-bottom: 1px solid #FFFFFF; /* Bordure blanche en mode sombre */
+        }
+
+        /* Conteneur pour les outils/logiciels */
+        .project-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #000000; /* Noir par défaut en mode clair */
+        }
+
+        /* Mode clair - bordure noire */
+        body.dark-mode .project-tools {
+            border-bottom: 1px solid #FFFFFF;
+        }
+
+        /* Style inversé pour les tags d'outils */
+        .tool-tag {
+            padding: 5px 12px;
+            background: rgba(0, 0, 0, 0.9); /* Fond noir/clair */
+            color: #FFFFFF; /* Texte blanc */
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        /* Mode clair - Inversion des tool-tags */
+        body.dark-mode .tool-tag {
+            background: #FFFFFF; /* Fond blanc */
+            color: #000000; /* Texte noir */
+        }
+
+        body.dark-mode .tool-tag:hover {
+            background: #1a1a1a; /* Blanc plus clair au survol */
+            box-shadow: 0 3px 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .tools-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .tools-label svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--text-primary);
+        }
+
+        .project-content {
+            padding: 30px; /* padding normal */
+            position: relative; /* AJOUTER cette ligne */
+        }
+
+        .project-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(59, 130, 246, 0.4);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .project-level {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(220, 38, 38, 0.4); /* Rouge avec opacité */
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #DC2626; /* Rouge plus intense pour le texte */
+            margin-bottom: 15px;
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-weight: 600;
+        }
+
+        /* Génération automatique du texte */
+        .project-card[data-level="but1"] .project-level::after {
+            content: "BUT 1";
+        }
+
+        .project-card[data-level="but2"] .project-level::after {
+            content: "BUT 2";
+        }
+
+        .project-card[data-level="but3"] .project-level::after {
+            content: "BUT 3 App";
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .project-description {
+            color: var(--text-muted); /* au lieu de #888 */
+            line-height: 1.6;
+            margin-bottom: 15px; /* au lieu de 20px */
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 5px; /* LIGNE EN PLUS */
+        }
+        
+        .tech-tag {
+            padding: 5px 12px;
+            background: var(--bg-secondary); /* au lieu de rgba(255, 255, 255, 0.05) */
+            color: var(--text-secondary); /* au lieu de #ccc */
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .project-links {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            /* background: var(--primary); */
+            background: rgb(0, 160, 100);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            /* background: #60A5FA; */
+            background: #10B981;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .project-link svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        /* Experience Page - Timeline côte à côte */
+        .experience-page {
+            padding: 120px 50px 80px;
+            max-width: 1600px; /* Plus large pour accommoder les deux colonnes */
+            margin: 0 auto;
+        }
+
+        .experience-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            margin-top: 60px;
+        }
+
+        .timeline-section {
+            position: relative;
+        }
+
+        .section-timeline-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px; /* CHANGER de "10px" à "40px" */
+            text-align: center;
+            color: var(--text-primary); /* au lieu de var(--primary) */
+            /* min-height: 60px; /* AJOUTER cette ligne */
+            /* display: flex; /* AJOUTER cette ligne */
+            /* align-items: center; /* AJOUTER cette ligne */
+            /* justify-content: center; /* AJOUTER cette ligne */
+        }
+        
+        /* Timeline générale */
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+            padding-top: 0; /* AJOUTER cette ligne */
+        }
+        
+        .timeline-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* Ligne verticale pour chaque section */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px; /* au lieu de 50% */
+            top: 0; /* CHANGER de "top: 30px" à "top: 0" */
+            bottom: 30px;
+            width: 2px;
+            background: #000000; /* Blanc par défaut en mode sombre */
+            transform: translateX(-50%);
+        }
+
+        body.dark-mode .timeline::before {
+            background: #FFFFFF;
+        }
+
+        .timeline-logo {
+            width: 75px;
+            height: 75px;
+            min-width: 75px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .timeline-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* filter: brightness(0) invert(1); */ /* Supprimez ou commentez cette ligne */
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .logo-full {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important; /* ou 'contain' selon votre préférence */
+            padding: 0 !important;
+        }
+
+        /* Retirer le padding du conteneur pour ce logo */
+        .timeline-logo:has(.logo-full) {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Logo full mais réduit */
+        .logo-full.logo-reduced {
+            width: 85% !important;  /* Ajustez ce pourcentage selon vos besoins */
+            height: 85% !important;
+            margin: auto; /* Centre le logo dans son conteneur */
+        }
+
+        /* Logo full mais réduit (HORIZONTALEMENT) */
+        .logo-full.logo-reduced-horizontal {
+            width: 80% !important;  /* Ajustez ce pourcentage selon vos besoins */
+            height: 40% !important;
+            margin: auto; /* Centre le logo dans son conteneur */
+        }
+
+        /* Classe générique pour tous les logos thématiques */
+        .logo-dark {
+            display: none;
+        }
+
+        .logo-light {
+            display: block;
+        }
+
+        /* Mode sombre */
+        body.dark-mode .logo-light {
+            display: none;
+        }
+
+        body.dark-mode .logo-dark {
+            display: block;
+        }
+
+        .contact-logo.montreuil-dark,
+        .contact-logo.montreuil-light {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;  /* Même taille que les autres logos */
+            height: 70%;
+            object-fit: contain;
+        }
+
+        /* Si :has() n'est pas supporté, utilisez cette alternative : *
+        .timeline-logo.full-container {
+            padding: 0;
+        }*/
+
+        .timeline-item {
+            margin-bottom: 40px; /* au lieu de 60px, ou ajustez selon vos besoins */
+            width: calc(100% - 60px); /* au lieu de 50% */
+            margin-left: 30px; /* pour laisser de la place à gauche */
+            padding-left: 40px; /* garder le padding */
+            padding-right: 0;
+            justify-content: flex-start; /* au lieu de flex-end */
+        }
+
+        /* Optionnel : retirer la marge du dernier élément */
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-content {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            position: relative;
+            max-width: none; /* ou une valeur plus grande comme 700px */
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .timeline-content:hover .timeline-logo {
+            background: rgba(59, 130, 246, 0.4);
+            transform: scale(1.05);
+        }
+
+        .timeline-content:hover .timeline-logo img {
+            opacity: 1;
+        }
+
+        .timeline-info {
+            flex: 1;
+        }
+        
+        .timeline-icon {
+            position: absolute;
+            top: 50%; /* Retour au centre */
+            /* SUPPRIMER la ligne: transform: translateY(-50%); /* Ajouté pour centrer verticalement */
+            left: -62px; /* position fixe à gauche */
+            right: auto;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 0 0 4px #FFFFFF;
+            z-index: 1; /* Ajouté pour s'assurer qu'il est au-dessus */
+        }
+
+        /* AJOUTEZ cette nouvelle règle pour compenser le décalage */
+        .timeline-item .timeline-icon {
+            top: calc(50% - 15px); /* Compense le gap de timeline-header */
+        }
+
+        .timeline-icon svg {
+            display: none;
+        }
+
+        /* Timeline icon avec SVG */
+        .timeline-icon-svg {
+            background: #000000 !important; /* Fond noir */
+            color: #FFFFFF; /* Icônes blanches */
+            box-shadow: 0 0 0 4px #FFFFFF;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-icon-svg svg {
+            width: 20px;
+            height: 20px;
+            stroke: #000000;
+        }
+
+        /* Effet au survol */
+        .timeline-content:hover .timeline-icon-svg {
+            /* NE PAS ajouter de transform ici --- transform: translateY(-50%) scale(1.1); /* Garde le centrage vertical */
+            background: #f5f5f5 !important;
+        }
+
+        /* Mode clair - Inversion des icônes timeline */
+        body.dark-mode .timeline-icon-svg {
+            background: #FFFFFF !important;
+            color: #000000;
+            box-shadow: 0 0 0 4px #000000;
+        }
+
+        body.dark-mode .timeline-icon-svg svg {
+            stroke: #000000;
+        }
+
+        body.dark-mode .timeline-content:hover .timeline-icon-svg {
+            background: #FFFFFF !important;
+        }
+
+        /* Ajuster les marges existantes */
+        .timeline-date {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .timeline-company {
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+        
+        .timeline-description {
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin-top: 0;
+        }
+
+        /* Responsive */
+
+        /* Tablette */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .experience-container {
+                gap: 40px; /* Réduit l'espace entre colonnes */
+            }
+
+            .timeline::before {
+                left: 30px; /* Position X de la ligne */
+            }
+            
+            .timeline-icon {
+                left: -47px !important; /* Position X de l'icône */
+            }
+
+            .timeline-item {
+                width: calc(100% - 40px); /* Augmente la largeur */
+                margin-left: 20px;
+                padding-left: 35px;
+            }
+        }
+
+        @media (max-width: 1200px) and (min-width: 769px) {
+            .experience-container {
+                gap: 30px;
+                max-width: 1200px;
+            }
+            
+            .timeline-content {
+                max-width: 100%;
+            }
+
+            .section-timeline-title {
+                min-height: 70px; /* Force la même hauteur */
+            }
+            
+            .timeline {
+                padding-top: 0; /* S'assure que les deux démarrent au même niveau */
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            /* Section Expérience - Responsive */
+            .experience-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .timeline::before {
+                left: 30px; /* Position X de la ligne verticale */
+            }
+            
+            .timeline-icon {
+                left: -62px !important; /* Position X de l'icône */
+                /* Pour centrer : left = position ligne - (largeur icône / 2) */
+                /* Exemple : 30px - 20px = 10px */
+                top: 50% !important; /* Force le centrage sur mobile */
+                transform: translateY(-50%) !important; /* Garde seulement le centrage vertical */
+            }
+
+            .timeline-item {
+                /* width: calc(100% - 30px); */
+                padding-left: 70px; /* Espace pour l'icône */
+                padding-left: 0;
+            }
+            
+            .timeline-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .timeline-logo {
+                width: 60px;
+                height: 60px;
+                min-width: 60px;
+            }
+            
+            .section-timeline-title {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .timeline {
+                padding: 20px 0;
+            }
+            
+            .timeline-content {
+                padding: 20px;
+            }
+        }
+
+
+        
+        /* Contact Page */
+        .contact-page {
+            padding: 120px 50px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            /* align-items est par défaut "stretch" ce qui aligne en haut */
+        }
+        
+        .contact-info {
+            opacity: 0;
+            animation: slideRightFade 0.8s ease forwards;
+            animation-delay: 0.4s;
+        }
+        
+        .contact-info h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* au lieu de var(--border-color)*/
+            background: var(--card-bg);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background: var(--bg-secondary);
+            transform: translateX(10px);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            /*background: var(--gradient-1);*/
+            background: #FFFFFF; /* Fond blanc */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Style pour les icônes SVG */
+        .contact-icon-svg {
+            background: #FFFFFF !important; /* Fond blanc */
+            color: #000000; /* Icônes noires */
+        }
+
+        .contact-icon-svg svg {
+            width: 24px;
+            height: 24px;
+            stroke: #000000; /* Contour noir */
+        }
+
+        /* Mode clair - Inversion des icônes contact */
+        body.dark-mode .contact-icon-svg {
+            background: #000000 !important;
+            color: #ffffff;
+        }
+
+        body.dark-mode .contact-icon-svg svg {
+            stroke: #ffffff;
+        }
+
+        /* LinkedIn - Mode sombre par défaut */
+        .linkedin-light {
+            display: none;
+        }
+
+        .linkedin-dark {
+            display: block;
+        }
+
+        /* LinkedIn - Mode clair */
+        body.dark-mode .linkedin-dark {
+            display: none;
+        }
+
+        body.dark-mode .linkedin-light {
+            display: block;
+        }
+        
+        /* Logo LinkedIn en mode clair */
+        body.dark-mode .contact-icon-logo {
+            background: #000000 !important;
+        }
+
+        /* Fond blanc en mode sombre (par défaut) */
+        .contact-icon-logo {
+            position: relative;
+            overflow: hidden;
+            background: #FFFFFF !important;
+        }
+
+        .contact-logo.linkedin-dark,
+        .contact-logo.linkedin-light {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;  /* Même taille que les autres logos */
+            height: 70%;
+            object-fit: contain;
+        }
+
+        /* Fond noir en mode clair */
+        body.dark-mode .contact-icon-logo {
+            background: #000000 !important;
+        }
+
+        /*body.dark-mode .contact-logo {
+            filter: brightness(0) invert(1); /* Pour inverser le logo LinkedIn */
+        } */
+
+        .contact-logo {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            /*filter: brightness(0) invert(1); /* Pour avoir le logo en blanc */
+        }
+
+        /* Si vous voulez le logo LinkedIn en couleur */
+        /*.contact-icon:has(img[alt="LinkedIn"]) {
+            background: #0A66C2; /* Couleur officielle LinkedIn */
+        }
+
+        /*.contact-icon:has(img[alt="LinkedIn"]) .contact-logo {
+            filter: brightness(0) invert(1); /* Logo blanc sur fond bleu */
+        }
+
+        /* Effet au survol */
+        .contact-item:hover .contact-icon:has(img[alt="LinkedIn"]) {
+            background: #004182; /* Bleu plus foncé au survol */
+        }
+        
+        .contact-details h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .contact-details a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-details a:hover {
+            color: var(--primary);
+        }
+        
+        .contact-form {
+            opacity: 0;
+            animation: slideLeftFade 0.8s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        .contact-form h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        /* Supprimez ou commentez cette règle */
+        /* .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+        } */
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px 20px;
+            background: var(--input-bg); /* au lieu de rgba(255, 255, 255, 0.05) */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* au lieu de var(--border-color)*/
+            border-radius: 10px;
+            color: var(--text-primary); /* au lieu de #fff */
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Style des placeholders */
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--placeholder-color); /* au lieu de rgba(255, 255, 255, 0.5) */
+            font-weight: 400;
+            transition: all 0.3s ease;
+        }
+
+        /* Effet au focus */
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--bg-secondary-hover);
+        }
+
+        .form-group input:focus::placeholder,
+        .form-group textarea:focus::placeholder {
+            opacity: 0.7;
+            transform: translateX(5px);
+        }
+
+        .form-group textarea {
+            min-height: 150px; /* Réduire de 150px à 120px (on passe de 6 lignes d'écriture à 5 lignes) */
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 22px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 10px;
+            color: #FFFFFF; /* Couleur du texte blanc */
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .send-icon {
+            width: 25px;
+            height: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px;
+            border-top: 1px solid var(--border-color); /* au lieu de rgba(255, 255, 255, 0.1) */
+            color: var(--text-dim); /* au lieu de #666 */
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+            .timeline-header {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: right 0.3s ease;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+            
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 0;
+                margin-left: 0;
+            }
+            
+        }
+        
+        /* Page Transition Effect */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--gradient-1);
+            transform: translateY(-100%);
+            z-index: 9999;
+        }
+        
+        .page-transition.active {
+            animation: slideDown 0.6s ease forwards;
+        }
+        
+        @keyframes slideDown {
+            0% { transform: translateY(-100%); }
+            50% { transform: translateY(0); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Style spécifique pour le bouton CV en bleu */
+        .btn-cv {
+            /*background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%) !important;*/
+            background: #10B981 !important; /* Couleur bleue Instagram */
+        }
+
+        .btn-cv:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4) !important;
+        }
+
+        /* Animation de pulsation avec couleur bleue */
+        .cv-button-container .btn-cv {
+            animation: cvPulse 2s ease-in-out infinite;
+        }
+
+        .cv-button-container {
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.4s;
+        }
+
+        .cv-button-container .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        .cv-svg-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Animation spécifique pour le bouton CV */
+        .cv-button-container .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Effet de pulsation subtile */
+        @keyframes cvPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+            }
+            50% { 
+                transform: scale(1.02);
+                box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+            }
+        }
+
+        .cv-button-container .btn {
+            animation: cvPulse 2s ease-in-out infinite;
+        }
+
+        .cv-button-container .btn:hover {
+            animation: none;
+        }
+
+        /* Effet de brillance optionnel */
+        .btn-cv::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-cv:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">SB</div>
+    </div>
+    
+    <!-- Page Transition -->
+    <div class="page-transition" id="pageTransition"></div>
+    
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Basculer le thème">
+        <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="sun-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" fill="#fff"/>
+            <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </button>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+    
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="navigateTo('home')">SB</div>
+            <ul class="nav-links" id="navLinks">
+
+                <li><a onclick="navigateTo('about')" class="nav-link" data-page="about">À propos de moi</a></li>
+                <li><a onclick="navigateTo('experience')" class="nav-link" data-page="experience">Expérience</a></li>
+                <li><a onclick="navigateTo('projects')" class="nav-link" data-page="projects">Projets universitaires</a></li>
+                <li><button onclick="navigateTo('contact')" class="nav-cta-btn">Me contacter</button></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Home Page -->
+    <div class="page-container active" id="home">
+        <section class="hero">
+            <div class="hero-background">
+                <div class="gradient-sphere sphere-1"></div>
+                <div class="gradient-sphere sphere-2"></div>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span style="--index: 0">SAMI</span> <span style="--index: 1">BENDRISS</span>
+                </h1>
+                <div class="typewriter-container">
+                    <span class="typewriter-static">Je suis</span>
+                    <span class="typewriter-dynamic">
+                        <span class="typewriter-text" id="typewriter"></span>
+                        <span class="typewriter-cursor">|</span>
+                    </span>
+                </div>
+                <p class="hero-subtitle">Bonjour et bienvenue à tous dans mon portfolio !</p>
+                <div class="hero-cta">
+                    <button onclick="navigateTo('projects')" class="btn btn-primary">Voir mes projets</button>
+                    <button onclick="navigateTo('contact')" class="btn btn-secondary">Me contacter</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- About Page -->
+    <div class="page-container" id="about">
+        <section class="about-page">
+            <div class="page-header">
+                <h1 class="page-title">À propos</h1>
+                <p class="page-subtitle"></p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Qui suis-je ?</h2>
+                    <p>
+                        Je m’appelle Sami Bendriss, j’ai 19 ans et je suis étudiant en 2ème année de BUT Information Communication 
+                        à l’IUT de Montreuil (Université Paris 8). Mon parcours en communication est guidé par ma curiosité et ma 
+                        volonté (maladive !) d’apprendre, dans un milieu où l’innovation est le maître mot. À l'avenir, j’aimerais 
+                        me positionner dans le secteur du marketing, afin d’affiner mes compétences en communication et en vente.
+                    </p>
+                    <p>
+                        Je suis actuellement à la recherche d’un contrat d’alternance d’un an pour septembre 2025 : il s’agit d’une
+                        opportunité rêvée pour mettre mes services à disposition d’une organisation dynamique, où je serais prêt 
+                        à relever de nouveaux défis.
+                    </p>
+                </div>
+                
+                <div class="about-image">
+                    <div class="profile-container">
+                        <img src="photo-profil.jpg" class="profile-img-placeholder">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="skills-section">
+                <h2 class="section-title">Mes compétences</h2>
+                <div class="skills-grid">
+                <!-- Pack Office - 4.5/5 étoiles -->
+                <div class="skill-card" style="--index: 0">
+                    <div class="skill-logo">
+                        <img src="icones/logo-office.png" alt="Pack Office">
+                    </div>
+                    <div class="skill-content">
+                        <h3 class="skill-name">Pack Office</h3>
+                        <div class="skill-level">
+                            <!-- 4 étoiles pleines -->
+                            <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <!-- Demi-étoile -->
+                            <svg class="star half" width="16" height="16" viewBox="0 0 24 24">
+                                <defs>
+                                    <clipPath id="half-star-clip">
+                                        <rect x="0" y="0" width="12" height="24"/>
+                                    </clipPath>
+                                </defs>
+                                <!-- Contour de l'étoile -->
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+                                <!-- Moitié remplie -->
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor" clip-path="url(#half-star-clip)"/>
+                            </svg>
+                        </div>
+                        <p class="skill-description">Word, PowerPoint, Excel</p>
+                    </div>
+                </div>
+
+                    <!-- Canva - 4/5 étoiles -->
+                    <div class="skill-card" style="--index: 1">
+                        <div class="skill-logo no-padding">
+                            <img src="icones/logo-canva.png" alt="Canva" class="logo-full">
+                        </div>
+                        <div class="skill-content">
+                            <h3 class="skill-name">Canva</h3>
+                            <div class="skill-level">
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star empty" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                            <p class="skill-description">Création de visuels</p>
+                        </div>
+                    </div>
+
+                    <!-- Montage vidéo - 3/5 étoiles -->
+                    <div class="skill-card" style="--index: 2">
+                        <div class="skill-logo">
+                            <img src="icones/logo-video.png" alt="Montage vidéo" class="logo-full">
+                        </div>
+                        <div class="skill-content">
+                            <h3 class="skill-name">Montage vidéo</h3>
+                            <div class="skill-level">
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star empty" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star empty" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                            <p class="skill-description">Adobe Premiere Pro, CapCut</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Suite Adobe - 2.5/5 étoiles -->
+                    <div class="skill-card" style="--index: 3">
+                        <div class="skill-logo">
+                            <img src="icones/logo-adobe.png" alt="Suite Adobe">
+                        </div>
+                        <div class="skill-content">
+                            <h3 class="skill-name">Suite Adobe</h3>
+                            <div class="skill-level">
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <!-- Demi-étoile -->
+                                <svg class="star half" width="16" height="16" viewBox="0 0 24 24">
+                                    <defs>
+                                        <clipPath id="half-star-clip">
+                                            <rect x="0" y="0" width="12" height="24"/>
+                                        </clipPath>
+                                    </defs>
+                                    <!-- Contour de l'étoile -->
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+                                    <!-- Moitié remplie -->
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor" clip-path="url(#half-star-clip)"/>
+                                </svg>
+                                <svg class="star empty" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star empty" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                            <p class="skill-description">Photoshop, Illustrator, InDesign, XD</p>
+                        </div>
+                    </div>
+
+                    <!-- HTML - 1.5/5 étoiles -->
+                    <div class="skill-card skill-card-wide" style="--index: 4">
+                        <div class="skill-logo">
+                            <img src="logos/HTML-white.svg" alt="Codage" class="logo-invert logo-light">
+                            <img src="logos/HTML-dark.svg" alt="Codage" class="logo-invert logo-dark">
+                        </div>
+                        <div class="skill-content">
+                            <h3 class="skill-name">Codage</h3>
+                            <div class="skill-level">
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <!-- Demi-étoile -->
+                                <svg class="star half" width="16" height="16" viewBox="0 0 24 24">
+                                    <defs>
+                                        <clipPath id="half-star-clip">
+                                            <rect x="0" y="0" width="12" height="24"/>
+                                        </clipPath>
+                                    </defs>
+                                    <!-- Contour de l'étoile -->
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+                                    <!-- Moitié remplie -->
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor" clip-path="url(#half-star-clip)"/>
+                                </svg>
+                                <svg class="star empty" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star empty" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg class="star empty" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                            <p class="skill-description">HTML 5, CSS 3, JavaScript, quelques notions de Python</p>
+                            <p class="fun-fact">→ Fun fact : ce site a entièrement été codé en HTML/CSS/JS (à l’aide de l’IA)</p>
+                        </div>
+                    </div>
+
+                </div>
+            
+            <div class="languages-section">
+                <h2 class="section-title">Mes langues</h2>
+                <div class="languages-grid">
+                    <div class="language-item" style="--index: 0">
+                        <div class="language-flag">
+                            <img src="flags/drapeau-france.svg" alt="Drapeau France" class="flag-svg">
+                        </div>
+                        <h3 class="language-name">Français</h3>
+                        <p class="language-description">Natif</p>
+                    </div>
+                    
+                    <div class="language-item" style="--index: 1">
+                        <div class="language-flag">
+                            <img src="flags/drapeau-uk.svg" alt="Drapeau UK" class="flag-svg">
+                        </div>
+                        <h3 class="language-name">Anglais</h3>
+                        <p class="language-description">Niveau B2</p>
+                    </div>
+                    
+                    <div class="language-item" style="--index: 2">
+                        <div class="language-flag">
+                            <img src="flags/drapeau-espagne.svg" alt="Drapeau Espagne" class="flag-svg">
+                        </div>
+                        <h3 class="language-name">Espagnol</h3>
+                        <p class="language-description">Niveau B1</p>
+                    </div>
+                    
+                    <div class="language-item" style="--index: 3">
+                        <div class="language-flag">
+                            <img src="flags/drapeau-algerie.svg" alt="Drapeau Algérie" class="flag-svg">
+                        </div>
+                        <h3 class="language-name">Arabe</h3>
+                        <p class="language-description">Niveau A1</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Centres d'intérêt Section -->
+            <div class="interests-section">
+                <h2 class="section-title">Mes centres d’intérêt</h2>
+                <div class="interests-grid">
+                    <!-- Sport -->
+                    <div class="interest-item" style="--index: 0">
+                        <div class="interest-icon">
+                            <img src="vecteurs/sport.svg" alt="Sport" class="interest-svg">
+                        </div>
+                        <h3 class="interest-name">Sport</h3>
+                        <p class="interest-description">Football, Formule 1, NBA</p>
+                    </div>
+                    
+                    <!-- Outils numériques -->
+                    <div class="interest-item" style="--index: 1">
+                        <div class="interest-icon">
+                            <img src="vecteurs/numerique.svg" alt="Outils numériques" class="interest-svg">
+                        </div>
+                        <h3 class="interest-name">Outils numériques</h3>
+                        <p class="interest-description">Technologies & Innovation</p>
+                    </div>
+                    
+                    <!-- Développement personnel -->
+                    <div class="interest-item" style="--index: 2">
+                        <div class="interest-icon">
+                            <img src="vecteurs/developpement-personnel.svg" alt="Développement personnel" class="interest-svg">
+                        </div>
+                        <h3 class="interest-name">Développement personnel</h3>
+                        <p class="interest-description">Croissance & Apprentissage</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Projects Page -->
+    <div class="page-container" id="projects">
+        <section class="projects-page">
+            <div class="page-header">
+                <h1 class="page-title">Mes projets</h1>
+                <p class="page-subtitle">Voici une sélection complète et variée de mes réalisations universitaires !</p>
+            </div>
+            
+            <div class="projects-filter">
+                <button class="filter-btn active" onclick="filterProjects('all')">TOUS</button>
+                <button class="filter-btn" onclick="filterProjects('stratégies')">Stratégies</button>
+                <button class="filter-btn" onclick="filterProjects('créations')">Créations</button>
+                <button class="filter-btn" onclick="filterProjects('analyses')">Analyses</button>
+            </div>
+
+            <h2 class="projects-count" id="projectsCount">xx projets</h2>
+            
+            <div class="projects-grid">
+
+                <!-- 1) Verifone - Challenge de la com -->
+                <div class="project-card" data-category="stratégies" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/verifone.png" alt="Projet Verifone">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">CHALLENGE DE LA COM</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Verifone</h3>
+                        <p class="project-description">
+                            Recommandation stratégique pour le client “Verifone”, 
+                            dans le cadre du Challenge (Local) de la communication 2025 (concours interne organisé par mon IUT).
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Recommandation</span>
+                            <span class="tech-tag">Analyse</span>
+                            <span class="tech-tag">Présentation</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Canva</span>
+                            <span class="tool-tag">Google Docs</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1iQGKXhhe53Wz8N_cWN-56JAjdsa7eDj4/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Voir la présentation
+                            </a>
+                            <a href="https://drive.google.com/file/d/1lQa-sgaVmk828OHc2caZqartNmFpdQlK/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Dossier final
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2) La Fabrique Cookies - SAE Proposer une reco -->
+                <div class="project-card" data-category="stratégies" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/fabrique-cookies.png" alt="La Fabrique Cookies">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">SAE Proposer une recommandation</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">La Fabrique Cookies</h3>
+                        <p class="project-description">
+                            Élaboration d’une recommandation d’agence sur la stratégie de communication de “La Fabrique Cookies”, une enseigne renommée de cookies artisanaux.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Recommandation</span>
+                            <span class="tech-tag">Analyse</span>
+                            <span class="tech-tag">Présentation</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Canva</span>
+                            <span class="tool-tag">Google Docs</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1zzb8sOYr4FR2LOpEd5lPTu2145IIi9uZ/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Recommandation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3) Vidéo Instagram - Pop[lab] -->
+                <div class="project-card" data-category="créations" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/maison-pop.png" alt="Maison Pop">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">SAE Concevoir un projet de com</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Maison Populaire</h3>
+                        <p class="project-description">
+                            Projet tuteuré autour de la communication du Pop[lab] de la Maison Populaire de Montreuil, qui a donné lieu à la création d’une vidéo créative pour leurs réseaux sociaux.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Rédaction</span>
+                            <span class="tech-tag">Créativité</span>
+                            <span class="tech-tag">Audiovisuel</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Google Docs</span>
+                            <span class="tool-tag">Adobe Premiere Pro</span>
+                            <span class="tool-tag">Canva</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1BwBXNNQk-8CkkKKKtsMl5hBqEbzdSLCE/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                            <a href="https://www.instagram.com/reel/DG3V7H0AR8Q/" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                Voir la vidéo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4) Jacquemus X L'Oréal - SAE Stratégie Com Numérique -->
+                <div class="project-card" data-category="stratégies" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/jacquemus-loreal.png" alt="Jacquemus X L'Oréal">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">SAE Stratégie com numérique</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Jacquemus X L’Oréal</h3>
+                        <p class="project-description">
+                            Élaboration d’une stratégie de communication digitale pour la création d’un parfum, en collaboration avec Jacquemus et L’Oréal.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Digital</span>
+                            <span class="tech-tag">Stratégie</span>
+                            <span class="tech-tag">Créativité</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Canva</span>
+                            <span class="tool-tag">ChatGPT Image</span>
+                            <span class="tool-tag">Sora</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1r4_obnHzaobukg3RrjETiQqDPlA20DO1/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                            <a href="https://drive.google.com/file/d/16m-gwigDPblYaJrPwmHWvMgSfdYX-KIx/view?usp=sharing" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                Voir le teaser
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5) Clip vidéo Yseult - Audiovisuel -->
+                <div class="project-card" data-category="créations" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/clip-video.png" alt="Clip vidéo Audivisuel">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Audiovisuel</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Clip vidéo - Yseult</h3>
+                        <p class="project-description">
+                            Réalisation d’un clip vidéo audiovisuel sur la musique “Indélébile” d’Yseult, avec une exploration visuelle des thèmes de la chanson.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Interprétation</span>
+                            <span class="tech-tag">Réalisation</span>
+                            <span class="tech-tag">Montage</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Google Docs</span>
+                            <span class="tool-tag">Adobe Premiere Pro</span>
+                            <span class="tool-tag">Canva</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://www.youtube.com/watch?v=BIF5HjG62zo" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                Voir le clip
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                                
+                <!-- 6) Application mobile “Talaria” - WEBDESIGN -->
+                <div class="project-card" data-category="créations" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/talaria-v3.png" alt="Talaria WEBDESIGN">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Webdesign</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Application mobile “Talaria”</h3>
+                        <p class="project-description">
+                            Conception du design d’une application mobile fictive, qui devait cibler la catégorie d’âge des 11-15 ans, à travers des références mythologiques.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Analyse</span>
+                            <span class="tech-tag">UI/UX</span>
+                            <span class="tech-tag">Créativité</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Adobe Illustrator</span>
+                            <span class="tool-tag">Adobe XD</span>
+                            <span class="tool-tag">Pinterest</span>
+                            <span class="tool-tag">Google Docs</span>
+                            <span class="tool-tag">Canva</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1z-LcAm0g0Mknq1rYlgLilyqFsAkPbe8n/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                            <a href="https://drive.google.com/file/d/16Mg-842DWA4mHR7zWgFsJERsj2aAvyjt/view?usp=sharing" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                Voir la démo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7) Santé publique France - Campagne de com audiovisuelle -->
+                <div class="project-card" data-category="créations" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/sante-publique-france.png" alt="Santé publique France">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Audiovisuel</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Santé publique France</h3>
+                        <p class="project-description">
+                            Campagne de communication audiovisuelle, qui sensibilise (de manière émotionnelle et humoristique) sur l’hyperconnexion pendant les fêtes de fin d’année.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Rédaction</span>
+                            <span class="tech-tag">Créativité</span>
+                            <span class="tech-tag">Présentation</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Google Docs</span>
+                            <span class="tool-tag">Canva</span>
+                            <span class="tool-tag">DALL-E 3</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1kIu029BChPhKtlVS3iu1aKqYxkfaW20S/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8) Événement “Mercredi” - EEO -->
+                <div class="project-card" data-category="créations" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/mercredi-netflix.png" alt="Mercredi Série">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Expression écrite et orale</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Événement - “Mercredi”</h3>
+                        <p class="project-description">
+                            Organisation d’un événement fictif pour la saison 2 de la série Netflix “Mercredi”, avec création d’une brochure pour les invités de notre soirée.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Événementiel</span>
+                            <span class="tech-tag">Organisation</span>
+                            <span class="tech-tag">Créativité</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Canva</span>
+                            <span class="tool-tag">Google Sheets</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/15K3bq-YDlysUp6pFnKPZWWe--Jgyf4aI/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                Voir la brochure
+                            </a>
+                            <a href="https://drive.google.com/file/d/1TDDHbYmVRJB7gRKm8572hePl8QnZmn1B/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9) Magazine en ligne “MOD” - Stratégie éditoriale -->
+                <div class="project-card" data-category="créations" data-level="but1">
+                    <div class="project-image">
+                        <img src="images/mod-magazine.png" alt="MOD Magazine">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Stratégie éditoriale</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Magazine en ligne “MOD”</h3>
+                        <p class="project-description">
+                            Création collaborative d’un magazine en ligne “Mode Of the Day”, sur le thème de la mode et du lifestyle, créé par l’ensemble de notre TP (groupe de 15 étudiants).
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Rédaction</span>
+                            <span class="tech-tag">Travail d’équipe</span>
+                            <span class="tech-tag">Réflexion</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">WordPress</span>
+                            <span class="tool-tag">Pinterest</span>
+                            <span class="tool-tag">Adobe Illustrator</span>
+                            <span class="tool-tag">Google Docs</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://www.mod.atelier.xzstudio.fr/" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                Voir le site
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 10) Plan de com - Pomme à paume -->
+                <div class="project-card" data-category="stratégies" data-level="but1">
+                    <div class="project-image">
+                        <img src="images/pommeapaume.png" alt="Pomme à paume">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">SAE Plan de communication</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Asso - “Pomme à paume”</h3>
+                        <p class="project-description">
+                            Création d’un plan de communication complet pour l’annonceur de notre choix, qui est une association aidant les étudiants précaires et les sans-abris.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Recommandation</span>
+                            <span class="tech-tag">Analyse</span>
+                            <span class="tech-tag">Stratégie</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Canva</span>
+                            <span class="tool-tag">Google Docs</span>
+                            <span class="tool-tag">DALL-E 3</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1waVVEgeqb9MrRKV6RymYCl6jBmbwgu8M/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Recommandation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 11) Xing Fu Tang - Marketing -->
+                <div class="project-card" data-category="analyses" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/xing-fu-tang.png" alt="Xing Fu Tang">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">SAE Marketing</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Xing Fu Tang</h3>
+                        <p class="project-description">
+                            Élaboration d’un plan de marchéage pour l’enseigne de bubble teas “Xing Fu Tang”, une analyse complète sur la stratégie marketing de l’entreprise.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Marketing</span>
+                            <span class="tech-tag">Analyse</span>
+                            <span class="tech-tag">Benchmarking</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Google Docs</span>
+                            <span class="tool-tag">Canva</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1sOZBJkJik6H5K--ufYeb7UtggOtEFVKe/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 12) Magazine “Insurrection” - InDesign -->
+                <div class="project-card" data-category="créations" data-level="but1">
+                    <div class="project-image">
+                        <img src="images/indesign.png" alt="Magazine InDesign">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Création graphique</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Magazine “Insurrection”</h3>
+                        <p class="project-description">
+                            Production d’une gazette fictive qui a pour objectif de s’insurger contre les injustices présentes dans la société actuelle, à travers la thématique de l’art.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">PAO</span>
+                            <span class="tech-tag">Rédaction</span>
+                            <span class="tech-tag">Design</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Adobe InDesign</span>
+                            <span class="tool-tag">Google Docs</span>
+                            <span class="tool-tag">Pinterest</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1mnF1Qa7_tbb32MIpIViDAUe_ujZa-OkR/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Voir le magazine
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 13) TPM Montreuil - Com culturelle -->
+                <div class="project-card" data-category="stratégies" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/tpm-theatre.png" alt="TPM Montreuil">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">SAE Communication culturelle</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">TPM Montreuil</h3>
+                        <p class="project-description">
+                            Création d’un appel à projet pour le dispositif “Arthécimus” du Théâtre Public de Montreuil, ciblant des enfants de 10 à 11 ans.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Organisation</span>
+                            <span class="tech-tag">Créativité</span>
+                            <span class="tech-tag">Présentation</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Google Docs</span>
+                            <span class="tool-tag">Google Sheets</span>
+                            <span class="tool-tag">Canva</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1KamX7yoDvxFLQnvHgHe_xj9kUmKlP0iX/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 14) SAE Cahier de tendances -->
+                <div class="project-card" data-category="analyses" data-level="but1">
+                    <div class="project-image">
+                        <img src="images/cahier-tendances.png" alt="Recueil de textes">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Création graphique</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Cahier de tendances</h3>
+                        <p class="project-description">
+                            Création d’un cahier de tendances sur le secteur du tourisme, mettant en lumière nos prédictions sur le futur de ce secteur.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Veille</span>
+                            <span class="tech-tag">Design</span>
+                            <span class="tech-tag">Rédaction</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Google Docs</span>
+                            <span class="tool-tag">Canva</span>
+                            <span class="tool-tag">Pinterest</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/19AvOamPJSuQGxdulrcHvbwvL1ojCZzcc/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 15) Engie - Com de crise -->
+                <div class="project-card" data-category="stratégies" data-level="but1">
+                    <div class="project-image">
+                        <img src="images/engie.png" alt="Engie">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Communication de crise</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Engie Home Services</h3>
+                        <p class="project-description">
+                            Élaboration d’une stratégie complète de communication de crise, en réponse au scandale fictif des chaudières Viessmann.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Stratégie</span>
+                            <span class="tech-tag">Analyse</span>
+                            <span class="tech-tag">Organisation</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Canva</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1Xpw-Fl5_P8SLgoRYUGY6-dgm2RXIh-SJ/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 16) Yves Rocher - Com numérique -->
+                <div class="project-card" data-category="analyses" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/yves-rocher.png" alt="Yves Rocher">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Communication numérique</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Yves Rocher</h3>
+                        <p class="project-description">
+                            Analyse complète de la proposition de valeurs et de la stratégie digitale de l’enseigne “Yves Rocher”.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Analyse</span>
+                            <span class="tech-tag">Veille</span>
+                            <span class="tech-tag">Digital</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Canva</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1vWZUKibqyh_BlCzhMKNlZWjGX1fCq020/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 17) Disney - Managemen de la performance et gestion du changement -->
+                <div class="project-card" data-category="analyses" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/disney.png" alt="Disney">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Management de la performance</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">The Walt Disney Company</h3>
+                        <p class="project-description">
+                            Élaboration d’une analyse complète du management de la performance de The Walt Disney Company.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Management</span>
+                            <span class="tech-tag">Analyse</span>
+                            <span class="tech-tag">Benchmarking</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Google Docs</span>
+                            <span class="tool-tag">Canva</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1uONxHu7T8X0V_i1-TuS20a-RadMP_Dmk/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 18) Patrick Roger - Stratégie de com événementielle -->
+                <div class="project-card" data-category="stratégies" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/patrick-roger.png" alt="Patrick Roger">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Communication événementielle</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Patrick Roger</h3>
+                        <p class="project-description">
+                            Stratégie de communication événementielle sur la soirée de lancement des nouvelles créations du chocolatier Patrick Roger.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Événementiel</span>
+                            <span class="tech-tag">Stratégie</span>
+                            <span class="tech-tag">Créativité</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Canva</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1epTk8eiziKNQCx88CcAxHXnloBxphK-P/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 19) ShopNow - Com interne -->
+                <div class="project-card" data-category="stratégies" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/shopnow.png" alt="ShopNow">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Communication interne</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">“ShopNow” (fictif)</h3>
+                        <p class="project-description">
+                            Création d’une stratégie de communication interne pour l’entreprise fictive “ShopNow”, spécialisée dans le e-commerce.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Corporate</span>
+                            <span class="tech-tag">Stratégie</span>
+                            <span class="tech-tag">Créativité</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Canva</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1IbjJsEcN6KqHoZ9i2dDLOn6r4jscouq5/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Présentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 20) Recueil de textes - EEO -->
+                <div class="project-card" data-category="créations" data-level="but2">
+                    <div class="project-image">
+                        <img src="images/recueil-textes.png" alt="Recueil de textes">
+                    </div>
+                    <!-- AJOUTER cette div -->
+                    <div class="project-separator"></div>
+                    <div class="project-content">
+                        <span class="project-category">Expression écrite et orale</span>
+                        <span class="project-level"></span> <!-- NOUVEAU BOUTON -->
+                        <h3 class="project-title">Recueil de textes</h3>
+                        <p class="project-description">
+                            Document créatif qui présente l’ensemble de mes textes écrits, rédigés durant cette année scolaire 2024-2025, pendant les cours d’Expression écrite et orale.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Rédaction</span>
+                            <span class="tech-tag">Créativité</span>
+                            <span class="tech-tag">Valorisation</span>
+                        </div>
+                        <div class="project-tools">
+                            <span class="tools-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                                </svg>
+                                Outils :
+                            </span>
+                            <span class="tool-tag">Canva</span>
+                            <span class="tool-tag">Google Docs</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1PAEGaK0z27WIut94duko8R2M-FPsSdlW/view?usp=drive_link" class="project-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Voir le recueil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Experience Page -->
+    <div class="page-container" id="experience">
+        <section class="experience-page">
+            <div class="page-header">
+                <h1 class="page-title">Mon parcours</h1>
+                <p class="page-subtitle">Voici un récapitulatif de mes formations et expériences professionnelles.</p>
+            </div>
+            
+            <div class="experience-container">
+                <!-- Timeline Parcours Scolaire (Gauche) -->
+                <div class="timeline-section timeline-left">
+                    <h2 class="section-timeline-title">Parcours scolaire</h2>
+                    <div class="timeline">
+                        <div class="timeline-item" style="--index: 0">
+                            <div class="timeline-content">
+                                <div class="timeline-icon timeline-icon-svg">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                        <path d="M6 12v5c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-5"></path>
+                                    </svg>
+                                </div>
+                                <div class="timeline-header">
+                                    <div class="timeline-logo">
+                                        <img src="logos/IUT-Montreuil_Infocom-white.svg" alt="IUT Montreuil" class="logo-invert logo-light">
+                                        <img src="logos/IUT-Montreuil_Infocom-black.svg" alt="IUT Montreuil" class="logo-invert logo-dark">
+                                    </div>
+                                    <div class="timeline-info">
+                                        <p class="timeline-date">2023 - 2026</p>
+                                        <h3 class="timeline-title">BUT Information Communication</h3>
+                                        <p class="timeline-company">IUT de Montreuil - Université Paris 8</p>
+                                    </div>
+                                </div>
+                                <p class="timeline-description">
+                                    Parcours <b><u>Communication des organisations</u></b>.
+                                    <br>Formation complète et polyvalente, qui nous fait travailler sur une grande partie des domaines présents en communication.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item" style="--index: 1">
+                            <div class="timeline-content">
+                                <div class="timeline-icon timeline-icon-svg">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="timeline-header">
+                                    <div class="timeline-logo">
+                                        <img src="logos/campus-drancy.png" alt="Lycée Paul le Rolland" class="logo-full">
+                                    </div>
+                                    <div class="timeline-info">
+                                        <p class="timeline-date">2020 - 2023</p>
+                                        <h3 class="timeline-title">Baccalauréat Général</h3>
+                                        <p class="timeline-company">Lycée Paul le Rolland | Drancy</p>
+                                    </div>
+                                </div>
+                                <p class="timeline-description">
+                                    Spécialités : Numérique et sciences informatiques + Mathématiques.
+                                    <br>⇒ <b><u>Mention Assez bien</u></b>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item" style="--index: 2">
+                            <div class="timeline-content">
+                                <div class="timeline-icon timeline-icon-svg">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="timeline-header">
+                                    <div class="timeline-logo">
+                                        <img src="logos/Logo_Drancy.svg" alt="Collège Pierre Sémard" class="logo-full logo-reduced-horizontal">
+                                    </div>
+                                    <div class="timeline-info">
+                                        <p class="timeline-date">2019 - 2020</p>
+                                        <h3 class="timeline-title">Diplôme National du Brevet</h3>
+                                        <p class="timeline-company">Collège Pierre Sémard | Drancy</p>
+                                    </div>
+                                </div>
+                                <p class="timeline-description">
+                                    ⇒ <b><u>Mention Très bien</u></b>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Expériences Professionnelles (Droite) -->
+                <div class="timeline-section timeline-right">
+                    <h2 class="section-timeline-title">Expériences professionnelles</h2>
+                    <div class="timeline">
+                        <div class="timeline-item" style="--index: 0">
+                            <div class="timeline-content">
+                                <div class="timeline-icon timeline-icon-svg">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </div>
+                                <div class="timeline-header">
+                                    <div class="timeline-logo">
+                                        <img src="logos/GPSO_92_Issy.png" alt="GPSO 92 Issy" class="logo-full logo-reduced">
+                                    </div>
+                                    <div class="timeline-info">
+                                        <p class="timeline-date">Mai - Juin 2025</p>
+                                        <h3 class="timeline-title">Stage de 2ème année</h3>
+                                        <p class="timeline-company">GPSO 92 Issy | Issy-les-Moulineaux</p>
+                                    </div>
+                                </div>
+                                <p class="timeline-description">
+                                    Stage de 8 semaines dans un club de football 100% féminin.
+                                    <li>Benchmark des clubs féminins et sportifs.</li>
+                                    <li>Création de contenus sur les réseaux sociaux.</li>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item" style="--index: 1">
+                            <div class="timeline-content">
+                                <div class="timeline-icon timeline-icon-svg">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                    </svg>
+                                </div>
+                                <div class="timeline-header">
+                                    <div class="timeline-logo">
+                                        <img src="logos/Expotentiel_3V.jpeg" alt="Expotentiel 3V" class="logo-full">
+                                    </div>
+                                    <div class="timeline-info">
+                                        <p class="timeline-date">Juin 2024</p>
+                                        <h3 class="timeline-title">Stage de 1ère année</h3>
+                                        <p class="timeline-company">Expotentiel 3V | Drancy</p>
+                                    </div>
+                                </div>
+                                <p class="timeline-description">
+                                    Stage de 4 semaines au sein d’une association municipale.
+                                        <li>Veille et gestion des réseaux sociaux.</li>
+                                        <li>Création de contenus vidéos.</li>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Contact Page -->
+    <div class="page-container" id="contact">
+        <section class="contact-page">
+            <div class="page-header">
+                <h1 class="page-title">Contact</h1>
+                <p class="page-subtitle">N’hésitez pas à me contacter, je serai ravi d’échanger avec vous !</p>
+                <div class="cv-button-container">
+                    <a href="CV-Sami-Bendriss.pdf" class="btn btn-primary btn-cv" target="_blank">
+                        <svg class="cv-svg-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        Découvrez mon CV !
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Mes coordonnées</h2>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon contact-icon-svg">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"></path>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Date de naissance</h3>
+                            <a>11 décembre 2005</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon contact-icon-svg">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Téléphone</h3>
+                            <a href="tel:+33782374322">+33.7.82.37.43.22</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon contact-icon-svg">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <a href="mailto:samibendriss93@gmail.com">samibendriss93@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon contact-icon-svg">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Localisation</h3>
+                            <a>Drancy (93700)</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon contact-icon-logo">
+                            <img src="reseaux/LinkedIn_icon_blanc.svg" alt="LinkedIn" class="contact-logo linkedin-dark">
+                            <img src="reseaux/LinkedIn_icon_noir.svg" alt="LinkedIn" class="contact-logo linkedin-light">
+                        </div>
+                        <div class="contact-details">
+                            <h3>LinkedIn</h3>
+                            <a href="https://linkedin.com/in/sami-bendriss/" target="_blank">https://linkedin.com/in/sami-bendriss/</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h2>Envoyez-moi un message</h2>
+                    <form onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Nom*" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Prénom*" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Email*" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Objet*" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Message*" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <svg class="send-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 2L11 13"></path>
+                                <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                            </svg>
+                            <span><h3>Envoyer</h3></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Sami Bendriss. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Current page tracking
+        let currentPage = 'home';
+        
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+        
+        // Theme Toggle avec détection automatique
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        function getSystemTheme() {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+            }
+        }
+
+        // Initialiser le thème
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else {
+            const systemTheme = getSystemTheme();
+            applyTheme(systemTheme);
+        }
+
+        // Écouter les changements système
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                applyTheme(newTheme);
+            }
+        });
+
+        // Basculer manuellement
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const cursorFollower = document.getElementById('cursorFollower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX - 10 + 'px';
+                cursorFollower.style.top = e.clientY - 10 + 'px';
+            }, 100);
+        });
+        
+        // Cursor hover effect
+        const updateCursorTargets = () => {
+            const links = document.querySelectorAll('a, button, .project-card, .skill-card, .contact-item');
+            links.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'scale(1.5)';
+                    cursorFollower.style.transform = 'scale(1.5)';
+                });
+                link.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'scale(1)';
+                    cursorFollower.style.transform = 'scale(1)';
+                });
+            });
+        };
+        updateCursorTargets();
+        
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Page navigation
+        function navigateTo(page) {
+            if (page === currentPage) return;
+            
+            // Update nav active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === page) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Page transition
+            const transition = document.getElementById('pageTransition');
+            transition.classList.add('active');
+            
+            setTimeout(() => {
+                // Hide current page
+                document.getElementById(currentPage).classList.remove('active');
+                
+                // Show new page
+                document.getElementById(page).classList.add('active');
+                currentPage = page;
+                
+                // Reset scroll position
+                window.scrollTo(0, 0);
+                
+                // Update cursor targets for new page
+                updateCursorTargets();
+                
+                // Close mobile menu
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                
+                transition.classList.remove('active');
+            }, 300);
+        }
+        
+        // Project filtering
+        function filterProjects(category) {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projects = document.querySelectorAll('.project-card');
+            
+            // Update active filter
+            filterBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(category) || 
+                    (category === 'all' && btn.textContent === 'TOUS')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Filter projects
+            projects.forEach((project, index) => {
+                if (category === 'all' || project.dataset.category === category) {
+                    project.style.display = 'block';
+                    project.style.animationDelay = '0.3s'; // Délai plus long mais identique pour tous
+                    project.classList.remove('fadeInUp');
+                    void project.offsetWidth; // Trigger reflow
+                    project.classList.add('fadeInUp');
+                } else {
+                    project.style.display = 'none';
+                }
+            });
+        }
+        
+        // Form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would normally send the data to a server
+            console.log('Form data:', data);
+            
+            // Show success message
+            alert('Merci pour votre message ! Je vous répondrai dans les plus brefs délais.');
+            
+            // Reset form
+            event.target.reset();
+        }
+        
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Parallax effect for hero background
+        window.addEventListener('scroll', () => {
+            if (currentPage === 'home') {
+                const scrolled = window.pageYOffset;
+                const parallax = document.querySelector('.hero-background');
+                if (parallax) {
+                    parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            }
+        });
+        
+        // Add magnetic effect to buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            const magneticButtons = document.querySelectorAll('.btn');
+            magneticButtons.forEach(btn => {
+                btn.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    this.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translate(0, 0)';
+                });
+            });
+        });
+
+        // Typewriter Effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const typewriterElement = document.getElementById('typewriter');
+            const cursorElement = document.querySelector('.typewriter-cursor');
+            const words = ['étudiant', 'curieux', 'ambitieux', 'rigoureux', 'motivé', 'persévérant', 'dynamique', 'polyvalent'];
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typeSpeed = 100;
+            
+            function typeWriter() {
+            if (!typewriterElement) return;
+            
+            const currentWord = words[wordIndex];
+            const fullWord = currentWord + '.'; // Ajoute le point au mot complet
+            
+            if (isDeleting) {
+                // Effacer le texte
+                const displayText = fullWord.substring(0, charIndex - 1);
+                // Vérifie si on affiche le point (dernier caractère)
+                if (charIndex > currentWord.length) {
+                    typewriterElement.innerHTML = currentWord + '<span style="color: var(--text-primary)">.</span>';
+                    cursorElement.style.color = 'var(--primary)'; // Curseur couleur normale
+                } else {
+                    typewriterElement.textContent = displayText;
+                }
+                charIndex--;
+                typeSpeed = 50;
+            } else {
+                // Écrire le texte
+                const displayText = fullWord.substring(0, charIndex + 1);
+                // Vérifie si on doit afficher le point
+                if (charIndex === currentWord.length) {
+                    typewriterElement.innerHTML = currentWord + '<span style="color: var(--text-primary)">.</span>';
+                    cursorElement.style.color = 'var(--text-primary)'; // Curseur assorti au point
+                } else {
+                    typewriterElement.textContent = displayText;
+                }
+                charIndex++;
+                typeSpeed = 100;
+            }
+            
+            // Si le mot (avec le point) est complètement écrit
+            if (!isDeleting && charIndex === fullWord.length) {
+                // Pause avant d'effacer
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                // Passer au mot suivant
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500; // Pause avant le prochain mot
+            }
+            
+            setTimeout(typeWriter, typeSpeed);
+        }
+            
+            // Démarrer l'animation après le chargement
+            setTimeout(typeWriter, 1000);
+        });
+
+        // Fonction pour compter et afficher le nombre de projets
+        function updateProjectCount() {
+            const visibleProjects = document.querySelectorAll('.project-card[style*="display: block"], .project-card:not([style*="display: none"])');
+            const count = visibleProjects.length;
+            const countElement = document.getElementById('projectsCount');
+            
+            if (countElement) {
+                if (count === 0) {
+                    countElement.textContent = 'Aucun projet trouvé';
+                } else if (count === 1) {
+                    countElement.textContent = '1 projet';
+                } else {
+                    countElement.textContent = `${count} projets`;
+                }
+            }
+        }
+
+        // Appeler au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProjectCount();
+        });
+
+        // Modifier la fonction filterProjects existante
+        function filterProjects(category) {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projects = document.querySelectorAll('.project-card');
+            
+            // Update active filter
+            filterBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (category === 'all' && btn.textContent.trim() === 'TOUS') {
+                    btn.classList.add('active');
+                }
+                else if (category !== 'all' && btn.textContent.toLowerCase().includes(category)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Filter projects
+            projects.forEach((project, index) => {
+                if (category === 'all' || project.dataset.category === category) {
+                    project.style.display = 'block';
+                    project.style.animationDelay = `${index * 0.1}s`;
+                    project.classList.remove('fadeInUp');
+                    void project.offsetWidth; // Trigger reflow
+                    project.classList.add('fadeInUp');
+                } else {
+                    project.style.display = 'none';
+                }
+            });
+            
+            // Mettre à jour le compte après le filtrage
+            updateProjectCount();
+        }
+
+        // Ajouter dans votre section <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Trouver tous les liens PDF
+            const pdfLinks = document.querySelectorAll('a[href$=".pdf"]');
+            
+            pdfLinks.forEach(link => {
+                // Ajouter les paramètres d'affichage si pas déjà présents
+                if (!link.href.includes('#')) {
+                    link.href += '#zoom=page-fit&view=Fit';
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
